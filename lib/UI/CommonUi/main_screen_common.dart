@@ -3,28 +3,26 @@ import 'package:snippett/Style/box_decoration_style.dart';
 import 'package:snippett/Style/colors.dart';
 import 'package:snippett/Style/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:snippett/UI/UserUi/drawerEl/about_company.dart';
-import 'package:snippett/UI/UserUi/drawerEl/my_appeals.dart';
-import 'package:snippett/UI/UserUi/drawerEl/my_applicatons.dart';
-import 'package:snippett/UI/UserUi/drawerEl/my_education.dart';
-import 'package:snippett/UI/UserUi/drawerEl/my_results.dart';
-import 'package:snippett/UI/UserUi/drawerEl/my_tests.dart';
+import 'package:snippett/UI/CommonUi/drawerEl/about_company.dart';
+import 'package:snippett/UI/CommonUi/drawerEl/my_appeals.dart';
+import 'package:snippett/UI/CommonUi/drawerEl/my_education.dart';
+import 'package:snippett/UI/CommonUi/drawerEl/my_results.dart';
+import 'package:snippett/UI/CommonUi/drawerEl/my_tests.dart';
 
-class MainScreenUser extends StatefulWidget {
-  const MainScreenUser({super.key});
+class MainScreenCommon extends StatefulWidget {
+  const MainScreenCommon({super.key});
 
   @override
-  State<MainScreenUser> createState() => _MainScreenUserState();
+  State<MainScreenCommon> createState() => _MainScreenUserState();
 }
 
-class _MainScreenUserState extends State<MainScreenUser> {
+class _MainScreenUserState extends State<MainScreenCommon> {
   final List<Widget> _tabs = [
     const aboutCompanyUser(),
     const myEducationUser(),
     const myTestUser(),
     const myResultUser(),
     const myAppealsUser(),
-    const myApplicationUser(),
   ];
   int val = 0;
   @override
@@ -273,46 +271,6 @@ class _MainScreenUserState extends State<MainScreenUser> {
                               Text(
                                 "Мои обращения",
                                 style: val == 4
-                                    ? textStyle.SmallTextBlue
-                                    : textStyle.SmallText,
-                              )
-                            ]),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => setState(() {
-                    val = 5;
-                  }),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 20.w, right: 23.w, bottom: 20.h),
-                    child: Container(
-                      width: 227.w,
-                      height: 36.h,
-                      decoration:
-                          val == 5 ? boxStyle.secondaryDecorationTile : null,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 14.w, vertical: 9.h),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ImageIcon(
-                                const AssetImage(
-                                    "assets/image/applications.png"),
-                                color: val == 5
-                                    ? colorrs.primary600
-                                    : colorrs.neutral300,
-                              ),
-                              SizedBox(
-                                width: 14.w,
-                              ),
-                              Text(
-                                "Мои заявки",
-                                style: val == 5
                                     ? textStyle.SmallTextBlue
                                     : textStyle.SmallText,
                               )

@@ -6,6 +6,7 @@ import 'package:snippett/Style/box_decoration_style.dart';
 import 'package:snippett/Style/colors.dart';
 import 'package:snippett/Style/text_style.dart';
 import 'package:snippett/Style/button_style.dart';
+import 'package:snippett/UI/AdminUi/draweEl/base_test_admin.dart';
 
 class baseEdMaterialAdmin extends StatelessWidget {
   const baseEdMaterialAdmin({super.key});
@@ -24,7 +25,7 @@ class subBaseEdMaterialAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int val = 1;
+    int val = 0;
     return val == 0
         ? Padding(
             padding: EdgeInsets.symmetric(horizontal: 17.w),
@@ -113,14 +114,21 @@ class ListStudyMaterials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<BaseEdMaterialAdminModel>();
     return Expanded(
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: model.listTEst.length,
         itemBuilder: (BuildContext context, int index) => Padding(
           padding: EdgeInsets.only(bottom: 20.h),
-          child: const StudyMaterialsItem(),
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const baseTestAdmin())),
+            child: StudyMaterialsItem(
+              index: index,
+            ),
+          ),
         ),
       ),
     );
@@ -128,10 +136,12 @@ class ListStudyMaterials extends StatelessWidget {
 }
 
 class StudyMaterialsItem extends StatelessWidget {
-  const StudyMaterialsItem({super.key});
+  int index;
+  StudyMaterialsItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<BaseEdMaterialAdminModel>();
     return Container(
       width: 360.w,
       height: 192.h,
@@ -164,7 +174,7 @@ class StudyMaterialsItem extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 16.w),
                       child: Text(
-                        "Lorem ipsum dolor",
+                        model.listTEst[index].name,
                         style: textStyle.Subtitle,
                       ),
                     ),
@@ -176,7 +186,7 @@ class StudyMaterialsItem extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: 16.w),
                         child: Text(
-                          "Samoe luchshee opisanie",
+                          "",
                           style: textStyle.SmallText,
                         ),
                       ),
@@ -193,7 +203,7 @@ class StudyMaterialsItem extends StatelessWidget {
                   SizedBox(
                     width: 15.w,
                   ),
-                  redactItemButton()
+                  const redactItemButton()
                 ],
               ),
             )

@@ -47,10 +47,6 @@ class SubSignUpAdmin extends StatelessWidget {
                 SizedBox(
                   height: 45.h,
                 ),
-                const fioTextField(),
-                SizedBox(
-                  height: 20.h,
-                ),
                 const numberTextField(),
                 SizedBox(
                   height: 20.h,
@@ -85,35 +81,6 @@ class SubSignUpAdmin extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class fioTextField extends StatelessWidget {
-  const fioTextField({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final model = context.watch<SignUpPortalModel>();
-    return Center(
-      child: SizedBox(
-        width: 320.w,
-        height: 50.h,
-        child: CupertinoTextField(
-          padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 12.h),
-          autofocus: true,
-          keyboardType: TextInputType.emailAddress,
-          onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) => model.fio = value,
-          placeholder: "ФИО",
-          placeholderStyle: textStyle.fieldText,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
         ),
       ),
@@ -339,7 +306,14 @@ class CreatePortalButton extends StatelessWidget {
         height: 46.h,
         child: ElevatedButton(
           style: buttonStyle.Default,
-          onPressed: () => model.goToSignIn(context),
+          onPressed: () => model.createPortal(
+              model.email,
+              model.password,
+              model.nameOrganization,
+              model.number,
+              model.inn,
+              model.adressOrganization,
+              context),
           child: Text(
             "Зарегистрироваться",
             style: textStyle.Buttontext,

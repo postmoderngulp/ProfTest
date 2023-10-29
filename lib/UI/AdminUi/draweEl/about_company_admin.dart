@@ -27,6 +27,7 @@ class subAboutCompanyAdmin extends StatelessWidget {
     var circleAvatar = const CircleAvatar(
       backgroundColor: Colors.white,
     );
+    final model = context.watch<aboutCompanyAdminModel>();
     return Column(
       children: [
         Container(
@@ -65,7 +66,7 @@ class subAboutCompanyAdmin extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Название компании",
+                    model.email,
                     style: textStyle.Header1blue,
                   ),
                   SizedBox(
@@ -169,8 +170,8 @@ class aimTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "Заполните поле",
+          onChanged: (value) => model.purpose = value,
+          placeholder: model.purpose,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -198,8 +199,8 @@ class MissionTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "Заполните поле",
+          onChanged: (value) => model.Mission = value,
+          placeholder: model.Mission,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -227,8 +228,8 @@ class AdressTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "Лучшая страна, г. Самый, ул. Лучшая, д. 666",
+          onChanged: (value) => model.Address = value,
+          placeholder: model.Address,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -256,8 +257,8 @@ class InnTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.number,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "7727563778",
+          onChanged: (value) => model.inn = value,
+          placeholder: model.inn,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -285,8 +286,8 @@ class NumberTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.number,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "+7 (951) 038-90-65",
+          onChanged: (value) => model.number = value,
+          placeholder: model.number,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -312,10 +313,10 @@ class EmailTextField extends StatelessWidget {
         child: CupertinoTextField(
           padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 12.h),
           autofocus: true,
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
-          placeholder: "meowmeow@ya.ru",
+          onChanged: (value) => model.email = value,
+          placeholder: model.email,
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -355,13 +356,15 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<aboutCompanyAdminModel>();
     return Center(
       child: SizedBox(
         width: 153.w,
         height: 46.h,
         child: ElevatedButton(
           style: buttonStyle.Default,
-          onPressed: () {},
+          onPressed: () => model.putPortal(model.email, model.number,
+              model.Address, model.color, model.Mission, model.description),
           child: Text(
             "Сохранить",
             style: textStyle.Buttontext,

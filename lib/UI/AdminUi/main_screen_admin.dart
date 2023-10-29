@@ -10,7 +10,7 @@ import 'package:snippett/UI/AdminUi/draweEl/base_education_material.dart';
 import 'package:snippett/UI/AdminUi/draweEl/base_employees_admin.dart';
 import 'package:snippett/UI/AdminUi/draweEl/base_test_admin.dart';
 import 'package:snippett/UI/AdminUi/draweEl/settings_admin.dart';
-import 'package:snippett/UI/AdminUi/draweEl/support_admin.dart';
+import 'package:snippett/UI/AdminUi/draweEl/structure_admin.dart';
 
 class MainScreenAdmin extends StatefulWidget {
   const MainScreenAdmin({super.key});
@@ -24,12 +24,12 @@ int val = 0;
 class _MainScreenAdminState extends State<MainScreenAdmin> {
   final List<Widget> _tabs = [
     const aboutCompanyAdmin(),
+    const structureAdmin(),
     const aplicationsAdmin(),
     const baseEdMaterialAdmin(),
     const baseTestAdmin(),
     const baseEmployeesAdmin(),
     const analyticsAdmin(),
-    const supportAdmin(),
     const settingsAdmin(),
   ];
 
@@ -148,8 +148,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ImageIcon(
-                                const AssetImage(
-                                    "assets/image/applications.png"),
+                                const AssetImage("assets/image/structure.png"),
                                 color: val == 1
                                     ? colorrs.primary600
                                     : colorrs.neutral300,
@@ -159,7 +158,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                                 width: 14.w,
                               ),
                               Text(
-                                "Мои заявки",
+                                "Структура",
                                 style: val == 1
                                     ? textStyle.SmallTextBlue
                                     : textStyle.SmallText,
@@ -178,7 +177,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                         EdgeInsets.only(left: 20.w, right: 23.w, bottom: 20.h),
                     child: Container(
                       width: 227.w,
-                      height: 58.h,
+                      height: 36.h,
                       decoration:
                           val == 2 ? boxStyle.secondaryDecorationTile : null,
                       child: Padding(
@@ -188,36 +187,22 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Center(
-                                child: ImageIcon(
-                                  const AssetImage(
-                                      "assets/image/materials.png"),
-                                  color: val == 2
-                                      ? colorrs.primary600
-                                      : colorrs.neutral300,
-                                  size: 18.w,
-                                ),
+                              ImageIcon(
+                                const AssetImage(
+                                    "assets/image/applications.png"),
+                                color: val == 2
+                                    ? colorrs.primary600
+                                    : colorrs.neutral300,
+                                size: 18.w,
                               ),
                               SizedBox(
                                 width: 14.w,
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "База учебных",
-                                    style: val == 2
-                                        ? textStyle.SmallTextBlue
-                                        : textStyle.SmallText,
-                                  ),
-                                  Text(
-                                    "материалов",
-                                    style: val == 2
-                                        ? textStyle.SmallTextBlue
-                                        : textStyle.SmallText,
-                                  )
-                                ],
+                              Text(
+                                "Мои заявки",
+                                style: val == 2
+                                    ? textStyle.SmallTextBlue
+                                    : textStyle.SmallText,
                               )
                             ]),
                       ),
@@ -233,7 +218,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                         EdgeInsets.only(left: 20.w, right: 23.w, bottom: 20.h),
                     child: Container(
                       width: 227.w,
-                      height: 36.h,
+                      height: 58.h,
                       decoration:
                           val == 3 ? boxStyle.secondaryDecorationTile : null,
                       child: Padding(
@@ -243,21 +228,36 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ImageIcon(
-                                const AssetImage("assets/image/test.png"),
-                                color: val == 3
-                                    ? colorrs.primary600
-                                    : colorrs.neutral300,
-                                size: 18.w,
+                              Center(
+                                child: ImageIcon(
+                                  const AssetImage(
+                                      "assets/image/materials.png"),
+                                  color: val == 3
+                                      ? colorrs.primary600
+                                      : colorrs.neutral300,
+                                  size: 18.w,
+                                ),
                               ),
                               SizedBox(
                                 width: 14.w,
                               ),
-                              Text(
-                                "База тестов",
-                                style: val == 3
-                                    ? textStyle.SmallTextBlue
-                                    : textStyle.SmallText,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "База учебных",
+                                    style: val == 3
+                                        ? textStyle.SmallTextBlue
+                                        : textStyle.SmallText,
+                                  ),
+                                  Text(
+                                    "материалов",
+                                    style: val == 3
+                                        ? textStyle.SmallTextBlue
+                                        : textStyle.SmallText,
+                                  )
+                                ],
                               )
                             ]),
                       ),
@@ -284,7 +284,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ImageIcon(
-                                const AssetImage("assets/image/employees.png"),
+                                const AssetImage("assets/image/test.png"),
                                 color: val == 4
                                     ? colorrs.primary600
                                     : colorrs.neutral300,
@@ -294,7 +294,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                                 width: 14.w,
                               ),
                               Text(
-                                "База сотрудников",
+                                "База тестов",
                                 style: val == 4
                                     ? textStyle.SmallTextBlue
                                     : textStyle.SmallText,
@@ -324,7 +324,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ImageIcon(
-                                const AssetImage("assets/image/analytics.png"),
+                                const AssetImage("assets/image/employees.png"),
                                 color: val == 5
                                     ? colorrs.primary600
                                     : colorrs.neutral300,
@@ -334,7 +334,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                                 width: 14.w,
                               ),
                               Text(
-                                "Аналитика",
+                                "База сотрудников",
                                 style: val == 5
                                     ? textStyle.SmallTextBlue
                                     : textStyle.SmallText,
@@ -364,7 +364,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ImageIcon(
-                                const AssetImage("assets/image/support.png"),
+                                const AssetImage("assets/image/analytics.png"),
                                 color: val == 6
                                     ? colorrs.primary600
                                     : colorrs.neutral300,
@@ -374,7 +374,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                                 width: 14.w,
                               ),
                               Text(
-                                "Помощь",
+                                "Аналитика",
                                 style: val == 6
                                     ? textStyle.SmallTextBlue
                                     : textStyle.SmallText,

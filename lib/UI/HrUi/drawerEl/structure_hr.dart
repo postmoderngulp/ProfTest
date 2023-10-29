@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snippett/Style/text_style.dart';
 
-class myAppealsUser extends StatelessWidget {
-  const myAppealsUser({super.key});
+class structureHr extends StatelessWidget {
+  const structureHr({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class myAppealsUser extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-          "My appeals",
+          "Structure",
           style: textStyle.Header1blue,
         ),
       ),

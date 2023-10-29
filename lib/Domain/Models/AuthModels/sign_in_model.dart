@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:snippett/Domain/Api/api.dart';
 import 'package:snippett/Navigation/Navigate.dart';
 
 class SignInModel extends ChangeNotifier {
@@ -16,8 +18,13 @@ class SignInModel extends ChangeNotifier {
     Navigator.of(context).pushNamed(NavigatePaths.MainScreenUserPath);
   }
 
-  void signIn(String email, String password, BuildContext context) async {
-    goToMainScreenAdmin(context);
+  Future<String> signIn(
+      String email, String password, BuildContext context) async {
+    final api = Api();
+    final entity = await api.logIn(email, password);
+    final storage = new FlutterSecureStorage();
+    await storage.write(key: "tokenKey", value: entity.tokenPair.accessToken);
+    return entity.role;
   }
 
   void goToSignUpPortal(BuildContext context) {

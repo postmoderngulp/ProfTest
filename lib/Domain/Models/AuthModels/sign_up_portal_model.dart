@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:snippett/Domain/Api/api.dart';
 import 'package:snippett/Navigation/Navigate.dart';
 
 class SignUpPortalModel extends ChangeNotifier {
   String email = "";
   String password = "";
-  String fio = "";
   String number = "";
   String inn = "";
   String nameOrganization = "";
@@ -14,24 +15,18 @@ class SignUpPortalModel extends ChangeNotifier {
   bool passwordVal = true;
   bool passwordCheck = true;
 
-  void goToChoosePortal(BuildContext context) {
-    Navigator.of(context).pushNamed(NavigatePaths.choosePortalPath);
-  }
-
   void goToSignIn(BuildContext context) {
     Navigator.of(context).pushNamed(NavigatePaths.signInPath);
   }
 
-  void createAdmin(
-      String email,
-      String password,
-      String fio,
-      String number,
-      String inn,
-      String nameOrganization,
-      String adressOrganization,
-      BuildContext context) async {
-    goToChoosePortal(context);
+  void createPortal(String email, String password, String number, String inn,
+      String name, String address, BuildContext context) async {
+    final api = Api();
+    final portal =
+        await api.createPortal(email, password, name, number, inn, address);
+    final storage = new FlutterSecureStorage();
+    await storage.write(key: "portalId", value: portal.id_);
+    goToSignIn(context);
   }
 
   void checkValid(String email) {

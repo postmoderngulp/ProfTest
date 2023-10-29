@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snippett/Style/text_style.dart';
 
-class supportAdmin extends StatelessWidget {
-  const supportAdmin({super.key});
+class baseEmployeesHr extends StatelessWidget {
+  const baseEmployeesHr({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class supportAdmin extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-          "Support",
+          "Base Empl",
           style: textStyle.Header1blue,
         ),
       ),

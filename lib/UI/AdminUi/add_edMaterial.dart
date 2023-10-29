@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:snippett/Domain/Models/AdminModels/add_ed_material_model.dart';
+import 'package:snippett/Domain/Models/AdminModels/add_ed_material_model_admin.dart';
 import 'package:snippett/Style/colors.dart';
 import 'package:snippett/Style/text_style.dart';
 import 'package:snippett/Style/button_style.dart';
@@ -13,7 +13,7 @@ class AddEdMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AddEdMaterialModel(),
+      create: (context) => AddEdMaterialAdminModel(),
       child: const subAddEdMaterial(),
     );
   }
@@ -103,7 +103,7 @@ class nameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AddEdMaterialModel>();
+    final model = context.watch<AddEdMaterialAdminModel>();
     return Center(
       child: SizedBox(
         width: 354.w,
@@ -113,7 +113,7 @@ class nameTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
+          onChanged: (value) => model.name = value,
           placeholder: "Заполните поле",
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
@@ -132,7 +132,7 @@ class inputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AddEdMaterialModel>();
+    final model = context.watch<AddEdMaterialAdminModel>();
     return Center(
       child: SizedBox(
         width: 354.w,
@@ -161,7 +161,7 @@ class linkTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AddEdMaterialModel>();
+    final model = context.watch<AddEdMaterialAdminModel>();
     return Center(
       child: SizedBox(
         width: 354.w,
@@ -171,7 +171,7 @@ class linkTextField extends StatelessWidget {
           autofocus: true,
           keyboardType: TextInputType.emailAddress,
           onEditingComplete: () => FocusScope.of(context).nextFocus(),
-          onChanged: (value) {},
+          onChanged: (value) => model.urlFile = value,
           placeholder: "Заполните поле",
           placeholderStyle: textStyle.fieldText,
           decoration: BoxDecoration(
@@ -209,12 +209,13 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AddEdMaterialAdminModel>();
     return SizedBox(
       width: 123.w,
       height: 36.h,
       child: ElevatedButton(
           style: buttonStyle.Default,
-          onPressed: () {},
+          onPressed: () => model.createmodule(model.name, model.urlFile),
           child: Row(
             children: [
               const Icon(

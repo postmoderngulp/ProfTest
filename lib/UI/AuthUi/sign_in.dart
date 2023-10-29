@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:snippett/Domain/Models/AuthModels/portal_enter_model.dart';
 import 'package:snippett/Domain/Models/AuthModels/sign_in_model.dart';
 import 'package:snippett/Navigation/Navigate.dart';
 import 'package:snippett/Style/button_style.dart';
@@ -182,6 +185,7 @@ class LogInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final role;
     final model = context.watch<SignInModel>();
     return Center(
       child: SizedBox(
@@ -190,17 +194,25 @@ class LogInButton extends StatelessWidget {
         child: ElevatedButton(
           style: buttonStyle.Default,
           onPressed: () => model.emailVailde
-              ? showModalBottomSheet<dynamic>(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(35),
-                          topRight: Radius.circular(35))),
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const PortalsBanner();
-                  },
-                )
+              ? {
+                  model.signIn(model.email, model.password, context),
+                  Timer(Duration(seconds: 1), () {
+                    showModalBottomSheet<dynamic>(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(35),
+                              topRight: Radius.circular(35))),
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ChangeNotifierProvider(
+                            create: (BuildContext context) =>
+                                portalEnterModel(),
+                            child: PortalsBanner());
+                      },
+                    );
+                  })
+                }
               : null,
           child: Text(
             "Войти",
@@ -213,7 +225,8 @@ class LogInButton extends StatelessWidget {
 }
 
 class PortalsBanner extends StatefulWidget {
-  const PortalsBanner({
+  int val = -1;
+  PortalsBanner({
     super.key,
   });
 
@@ -222,10 +235,9 @@ class PortalsBanner extends StatefulWidget {
 }
 
 class _PortalsBannerState extends State<PortalsBanner> {
-  int val = -1;
-
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<portalEnterModel>();
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -246,38 +258,42 @@ class _PortalsBannerState extends State<PortalsBanner> {
             SizedBox(
               height: 36.h,
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: GestureDetector(
-                  onTap: () => setState(() {
-                    val = index;
-                  }),
-                  child: Container(
-                    width: 262.w,
-                    height: 48.h,
-                    decoration: val == index
-                        ? boxStyle.clickSecondaryDecoration
-                        : boxStyle.secondaryDecoration,
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 19.w, vertical: 12.h),
-                          child: Text(
-                            "Название",
-                            style: textStyle.ButtontextBlue,
-                          ),
-                        )),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: model.listPortal.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: GestureDetector(
+                    onTap: () => setState(() {
+                      widget.val = index;
+                    }),
+                    child: Container(
+                      width: 262.w,
+                      height: 48.h,
+                      decoration: widget.val == index
+                          ? boxStyle.clickSecondaryDecoration
+                          : boxStyle.secondaryDecoration,
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 19.w, vertical: 12.h),
+                            child: Text(
+                              model.listPortal[index].name,
+                              style: textStyle.ButtontextBlue,
+                            ),
+                          )),
+                    ),
                   ),
                 ),
               ),
             ),
-            const Padding(
-                padding: EdgeInsets.only(top: 30, bottom: 15),
-                child: ContinueButton()),
+            Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 15),
+                child: ContinueButton(
+                  index: widget.val,
+                )),
           ],
         ),
       ),
@@ -286,18 +302,25 @@ class _PortalsBannerState extends State<PortalsBanner> {
 }
 
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({super.key});
+  int index;
+  ContinueButton({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<portalEnterModel>();
     return Center(
       child: SizedBox(
         width: 251.w,
         height: 46.h,
         child: ElevatedButton(
           style: buttonStyle.Default,
-          onPressed: () => Navigator.of(context)
-              .pushNamed(NavigatePaths.MainScreenAdminPath),
+          onPressed: () {
+            print(index);
+            model.SavePortal(model.listPortal[index]);
+            Navigator.of(context).pushNamed(
+              NavigatePaths.MainScreenAdminPath,
+            );
+          },
           child: Text(
             "Продолжить",
             style: textStyle.Buttontext,

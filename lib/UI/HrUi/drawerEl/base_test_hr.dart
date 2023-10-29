@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snippett/Style/text_style.dart';
 
-class myTestUser extends StatelessWidget {
-  const myTestUser({super.key});
+class baseTestHr extends StatelessWidget {
+  const baseTestHr({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class myTestUser extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Text(
-          "My tests",
+          "My applications",
           style: textStyle.Header1blue,
         ),
       ),
